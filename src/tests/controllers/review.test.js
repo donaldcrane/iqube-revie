@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import db from "../../models";
-import { user4 } from "./user-sign-in-test-data";
+import { user } from "./user-sign-in-test-data";
 import {
   review, review2, review3, review4, review5
 } from "./review-data";
@@ -19,7 +19,7 @@ describe("Add review", () => {
       .request(server)
       .post("/api/v1/users/signin")
       .set("Accept", "application/json")
-      .send(user4)
+      .send(user)
       .end((err, res) => {
         if (err) throw err;
         userToken = res.body.data;
@@ -46,7 +46,7 @@ describe("Add review", () => {
       .set("Accept", "application/json")
       .send(review2)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(422);
         done();
       });
   });
@@ -69,7 +69,7 @@ describe("Update review", () => {
       .request(server)
       .post("/api/v1/users/signin")
       .set("Accept", "application/json")
-      .send(user4)
+      .send(user)
       .end((err, res) => {
         if (err) throw err;
         userToken = res.body.data;
@@ -79,7 +79,7 @@ describe("Update review", () => {
   it("should allow User update a review", (done) => {
     chai
       .request(server)
-      .patch("/api/v1/reviews/6186f39a38a969e972804ad3")
+      .patch("/api/v1/reviews/62823d2735be3a9454def9a3")
       .set("Authorization", `Bearer ${userToken}`)
       .set("Accept", "application/json")
       .send({ name: "Mansion" })
@@ -116,6 +116,76 @@ describe("Update review", () => {
   });
 });
 
+describe("GET review api route", () => {
+  beforeEach(async () => {
+    await db.Review.create(review4);
+    await db.Review.create(review5);
+  });
+  let userToken;
+  before((done) => {
+    chai
+      .request(server)
+      .post("/api/v1/users/signin")
+      .set("Accept", "application/json")
+      .send(user)
+      .end((err, res) => {
+        if (err) throw err;
+        userToken = res.body.data;
+        done();
+      });
+  });
+  it("returns all reviews", (done) => {
+    chai
+      .request(server)
+      .get("/api/v1/reviews")
+      .set("Authorization", `Bearer ${userToken}`)
+      .end((err, res) => {
+        const { status, body } = res;
+        const { data } = body;
+        expect(status).to.equal(200);
+        expect(body.status).to.equal(200);
+        expect(body.message).to.equal("Successfully retrived all Reviews.");
+
+        data.forEach((reviews) => {
+          expect(reviews).to.have.property("_id");
+          expect(reviews).to.have.property("name");
+          expect(reviews).to.have.property("lanlordReview");
+          expect(reviews).to.have.property("enviromentReview");
+          expect(reviews).to.have.property("apartmentLocation");
+          expect(reviews).to.have.property("amenitiesQuality");
+          expect(reviews).to.have.property("isHelpful");
+        });
+
+        expect(data).to.be.an("array");
+        done();
+      });
+  });
+
+  it("returns review with specific id", (done) => {
+    chai
+      .request(server)
+      .get("/api/v1/reviews/62823d2735be3a9454def9a3")
+      .set("Authorization", `Bearer ${userToken}`)
+      .end((err, res) => {
+        const { status, body } = res;
+        const { data } = body;
+        expect(status).to.equal(200);
+        expect(body.status).to.equal(200);
+        expect(body.message).to.equal("Successfully retrived Review.");
+        expect(data).to.have.property("_id");
+        expect(data).to.have.property("name");
+        expect(data).to.have.property("lanlordReview");
+        expect(data).to.have.property("enviromentReview");
+        expect(data).to.have.property("apartmentLocation");
+        expect(data).to.have.property("amenitiesQuality");
+        expect(data).to.have.property("isHelpful");
+
+        expect(data).to.be.an("object");
+        done();
+      });
+  });
+});
+
 describe("Delete review", () => {
   beforeEach(async () => {
     await db.Review.create(review4);
@@ -126,7 +196,7 @@ describe("Delete review", () => {
       .request(server)
       .post("/api/v1/users/signin")
       .set("Accept", "application/json")
-      .send(user4)
+      .send(user)
       .end((err, res) => {
         if (err) throw err;
         userToken = res.body.data;
@@ -136,7 +206,7 @@ describe("Delete review", () => {
   it("should allow User Delete a review", (done) => {
     chai
       .request(server)
-      .delete("/api/v1/reviews/6186f39a38a969e972804ad3")
+      .delete("/api/v1/reviews/62823d2735be3a9454def9a3")
       .set("Authorization", `Bearer ${userToken}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -162,82 +232,6 @@ describe("Delete review", () => {
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body.error).to.equal("Review not found.");
-        done();
-      });
-  });
-});
-
-describe("GET review api route", () => {
-  beforeEach(async () => {
-    await db.Review.create(review4);
-    await db.Review.create(review5);
-  });
-  let userToken;
-  before((done) => {
-    chai
-      .request(server)
-      .post("/api/v1/users/signin")
-      .set("Accept", "application/json")
-      .send(user4)
-      .end((err, res) => {
-        if (err) throw err;
-        userToken = res.body.data;
-        done();
-      });
-  });
-  it("returns all reviews", (done) => {
-    chai
-      .request(server)
-      .get("/api/v1/reviews")
-      .set("Authorization", `Bearer ${userToken}`)
-      .end((err, res) => {
-        const { status, body } = res;
-        const { data } = body;
-        expect(status).to.equal(200);
-        expect(body.status).to.equal(200);
-        expect(body.message).to.equal("Successfully retrived all Reviews.");
-
-        data.forEach((reviews) => {
-          expect(reviews).to.have.property("id");
-          expect(reviews).to.have.property("name");
-          expect(reviews).to.have.property("user");
-          expect(reviews).to.have.property("image");
-          expect(reviews).to.have.property("lanlordReview");
-          expect(reviews).to.have.property("enviromentReview");
-          expect(reviews).to.have.property("apartmentLocation");
-          expect(reviews).to.have.property("amenitiesQuality");
-          expect(reviews).to.have.property("isHelpful");
-        });
-
-        expect(data).to.have.length(2);
-
-        expect(data).to.be.an("array");
-        done();
-      });
-  });
-
-  it("returns review with specific id", (done) => {
-    chai
-      .request(server)
-      .get("/api/v1/reviews/6186f39a38a969e972804ad3")
-      .set("Authorization", `Bearer ${userToken}`)
-      .end((err, res) => {
-        const { status, body } = res;
-        const { data } = body;
-        expect(status).to.equal(200);
-        expect(body.status).to.equal(200);
-        expect(body.message).to.equal("Successfully retrived Review.");
-        expect(data).to.have.property("id");
-        expect(data).to.have.property("name");
-        expect(data).to.have.property("userId");
-        expect(data).to.have.property("image");
-        expect(data).to.have.property("lanlordReview");
-        expect(data).to.have.property("enviromentReview");
-        expect(data).to.have.property("apartmentLocation");
-        expect(data).to.have.property("amenitiesQuality");
-        expect(data).to.have.property("isHelpful");
-
-        expect(data).to.be.an("object");
         done();
       });
   });

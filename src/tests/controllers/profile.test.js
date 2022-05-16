@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../../app";
-import { user4 } from "./user-sign-in-test-data";
+import { user } from "./user-sign-in-test-data";
 import profile from "./profile-data";
 
 chai.should();
@@ -16,7 +16,7 @@ describe("Update user profile", () => {
       .request(server)
       .post("/api/v1/users/signin")
       .set("Accept", "application/json")
-      .send(user4)
+      .send(user)
       .end((err, res) => {
         if (err) throw err;
         userToken = res.body.data;
@@ -44,7 +44,7 @@ describe("Update user profile", () => {
       .set("Accept", "application/json")
       .send({ firstName: 86767, lastName: 787878 })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(422);
         done();
       });
   });

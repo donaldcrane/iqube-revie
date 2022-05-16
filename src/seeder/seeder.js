@@ -1,8 +1,8 @@
 import seeder from "mongoose-seed";
+import config from "../config/index";
 
 const userSeed = require("./userSeed");
 const reviewSeed = require("./reviewSeed");
-const config = require("../config/index");
 
 // Data array containing seed data - documents organized by Model
 const data = [userSeed, reviewSeed];

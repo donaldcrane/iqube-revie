@@ -3,7 +3,8 @@ const user = {
   email: "garrasdy@gmail.com",
   password: "123456",
   firstName: "Mary",
-  lastName: "paul"
+  lastName: "paul",
+  phone: "05223652152"
 };
 const user2 = {
   email: "garry@gmail.com",
@@ -13,11 +14,15 @@ const user3 = {
   username: "grace",
   email: "garrasdy@gmail.com",
   password: "123456",
+  firstName: "Mary",
+  lastName: "paul",
+  phone: "05223652152"
 };
 const user4 = {
   username: "anini",
   email: "anini@gmail.com",
   password: "123456",
+
 };
 
 export {

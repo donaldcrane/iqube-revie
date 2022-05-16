@@ -26,4 +26,4 @@ if (!isEmpty(absentConfig)) {
   throw new Error(`Missing Config: ${absentConfig.join(", ")}`);
 }
 
-module.exports = config;
+export default config;

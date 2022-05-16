@@ -29,7 +29,7 @@ describe("Should test all users", async () => {
         .set("Accept", "application/json")
         .send(user2)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           done();
         });
     });
@@ -40,7 +40,7 @@ describe("Should test all users", async () => {
         .set("Accept", "application/json")
         .send(user3)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(409);
           res.body.should.have.property("error").eql("Email does not exist.");
           done();
         });

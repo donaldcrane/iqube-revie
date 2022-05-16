@@ -1,6 +1,5 @@
 const review = {
   name: "Semi detached",
-  image: "http://facebook.com",
   lanlordReview: "He is a sad man",
   enviromentReview: "Very boring place",
   apartmentLocation: "24 ikoyi bustop",
@@ -13,7 +12,7 @@ const review2 = {
 };
 
 const review3 = {
-  userId: "6187a0dd81100c7340bdc63f",
+  user: "6187a0dd81100c7340bdc63f",
   name: "3 bedroom bungaow",
   image: "http://facebook.com",
   lanlordReview: "He is a good man",
@@ -25,21 +24,18 @@ const review3 = {
 
 const review4 = {
   id: "6186f39a38a969e972804ad3",
-  userId: "6187a0dd81100c7340bdc63f",
   name: "3 bedroom bungaow",
-  image: "http://facebook.com",
   lanlordReview: "He is a good man",
   enviromentReview: "Very peacful place",
   apartmentLocation: "24 ajah bustop",
   amenitiesQuality: "Very good",
-  isHelpful: 10,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
 
 const review5 = {
   id: "6187a0dd81100c7340bdc36f",
-  userId: "6186e80aa8a6d3abae02d434",
+  user: "6186e80aa8a6d3abae02d434",
   name: "1 Storey Building",
   image: "http://twitter.com",
   lanlordReview: "He is a nice man",

@@ -1,4 +1,4 @@
-const { logger } = require("../config");
+import config from "../config";
 
 function errorResponse(
   res,
@@ -12,7 +12,7 @@ function errorResponse(
     message,
     error,
   };
-  logger.error(message);
+  config.logger.error(message);
   return res.status(statusCode).send(responseObject);
 }
 
@@ -27,11 +27,11 @@ function successResponse(
     message,
     data,
   };
-  logger.info(message);
+  config.logger.info(message);
   return res.status(status).send(responseObject);
 }
 
-module.exports = {
+export {
   errorResponse,
   successResponse,
 };

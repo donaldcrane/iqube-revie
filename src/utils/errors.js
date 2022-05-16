@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-const config = require("../config");
+import config from "../config";
 
 const GENERIC_ERROR_MESSAGE = "Something went wrong. We are trying to investigate the cause of this.";
 
@@ -46,4 +46,4 @@ class GenericError extends Error {
   }
 }
 
-module.exports = GenericError;
+export default GenericError;
