@@ -2,11 +2,8 @@
 
 Revie is a hypothetical platform where users can sign up with their basic information and post reviews about apartments they've previously lived in.
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/9513235ec15d6b58c2bf/maintainability)](https://codeclimate.com/github/donaldcrane/Revie/maintainability)
-[![](https://img.shields.io/badge/Protected_by-Hound-a873d1.svg)](https://houndci.com)
-[![NodeJS CI](https://github.com/donaldcrane/Revie/actions/workflows/node.js.yml/badge.svg)](https://github.com/donaldcrane/Revie/actions/workflows/node.js.yml)
-[![Coverage Status](https://coveralls.io/repos/github/donaldcrane/Revie/badge.svg?branch=develop)](https://coveralls.io/github/donaldcrane/Revie?branch=develop)
-
+[![Node.js CI](https://github.com/donaldcrane/iqube-revie/actions/workflows/node.js.yml/badge.svg)](https://github.com/donaldcrane/iqube-revie/actions/workflows/node.js.yml)
+[![Coverage Status](https://coveralls.io/repos/github/donaldcrane/iqube-revie/badge.svg?branch=main)](https://coveralls.io/github/donaldcrane/iqube-revie?branch=main)
 # Documentation
 
 A detailed documentation of the api can be found here: [API Documentation](https://documenter.getpostman.com/view/11971882/TWDdiYeC#fd839427-74df-409a-9668-8fb0620faa9a)
