@@ -1,0 +1,67 @@
+{
+  "name": "revie",
+  "version": "1.0.0",
+  "description": "Revie is a hypothetical platform where users can sign up with their basic information and post reviews about apartments they've previously lived in.",
+  "main": "app.js",
+  "scripts": {
+    "clean": "npm rm -rf build && npm run build-babel",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/app.js",
+    "lint": "eslint src/  --fix",
+    "seeder": "babel-node ./src/seeder/seeder.js",
+    "test": "cross-env NODE_ENV=test && npm run seeder && nyc --require --reporter=html --reporter=text mocha -r @babel/register ./src/tests/index.js --timeout 1000000 --recursive --exit || true",
+    "coverage": "nyc npm run test && nyc report --reporter=text-lcov --reporter=lcov | node ./node_modules/coveralls/bin/coveralls.js --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/donaldcrane/iqube-revie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/donaldcrane/iqube-revie/issues"
+  },
+  "homepage": "https://github.com/donaldcrane/iqube-revie#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.30.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.3",
+    "mongoose-seed": "^0.6.0",
+    "multer": "^1.4.4",
+    "multer-storage-cloudinary": "^4.0.0",
+    "path": "^0.12.7",
+    "pino": "^7.11.0",
+    "pino-pretty": "^7.6.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/node": "^7.17.10",
+    "@babel/plugin-transform-runtime": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/register": "^7.17.7",
+    "@babel/runtime": "^7.17.9",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "cookie-session": "^2.0.0",
+    "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "mocha": "^10.0.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^2.0.16",
+    "nyc": "^15.1.0",
+    "sinon": "^14.0.0",
+    "sinon-chai": "^3.7.0"
+  }
+}
